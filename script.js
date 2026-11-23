@@ -1,54 +1,33 @@
-// Расчёт сложных процентов (начисление раз в год).
-// Все значения приводятся к числам, неверный ввод возвращает null.
-function calculate(principal, rate, years) {
-  const p = Number(principal);
-  const r = Number(rate);
-  const y = Number(years);
+const calculate = () => {
+  const principalEl = document.getElementById("principal");
+  const rateEl = document.getElementById("rate");
+  const timeEl = document.getElementById("time");
+  const result = document.getElementById("result");
 
-  if (!Number.isFinite(p) || !Number.isFinite(r) || !Number.isFinite(y) || p < 0 || r < 0 || y < 0) {
-    return null;
-  }
-
-  const total = p * Math.pow(1 + r / 100, y);
-  return {
-    total: Math.round(total * 100) / 100,
-    interest: Math.round((total - p) * 100) / 100,
-  };
-}
-
-function handleClick() {
-  const principalEl = document.getElementById('principal');
-  const rateEl = document.getElementById('rate');
-  const yearsEl = document.getElementById('years');
-  const resultEl = document.getElementById('result');
-
-  // Защита от TypeError: элементы могут отсутствовать на странице
-  if (!principalEl || !rateEl || !yearsEl || !resultEl) {
+  // Защита от TypeError: если элемента нет на странице, выходим
+  if (!principalEl || !rateEl || !timeEl || !result) {
     return;
   }
 
-  const result = calculate(principalEl.value, rateEl.value, yearsEl.value);
+  // Приводим значения из полей ввода (строки) к числам
+  const p = Number(principalEl.value);
+  const r = Number(rateEl.value);
+  const t = Number(timeEl.value);
 
-  if (result === null) {
-    resultEl.textContent = 'Введите корректные неотрицательные числа.';
-    resultEl.className = 'error';
+  if (!Number.isFinite(p) || !Number.isFinite(r) || !Number.isFinite(t)) {
+    result.innerHTML = "<div>Please enter valid numbers.</div>";
     return;
   }
 
-  resultEl.className = '';
-  resultEl.textContent =
-    'Проценты: ' + result.interest.toLocaleString('ru-RU') +
-    ' | Итого: ' + result.total.toLocaleString('ru-RU');
-}
+  const simpleInterest = (p * r * t) / 100;
+  const amount = p + simpleInterest;
 
-if (typeof document !== 'undefined') {
-  const button = document.getElementById('calculate-btn');
-  if (button) {
-    button.addEventListener('click', handleClick);
-  }
-}
+  result.innerHTML = `<div>Principal Amount: <span>${p.toFixed(2)}</span></div>
+  <div>Total Interest: <span>${simpleInterest.toFixed(2)}</span></div>
+  <div>Total Amount: <span>${amount.toFixed(2)}</span></div>`;
+};
 
 // Экспорт для Jasmine и Webpack (в браузере module не определён)
-if (typeof module !== 'undefined' && module.exports) {
+if (typeof module !== "undefined" && module.exports) {
   module.exports = { calculate };
 }
