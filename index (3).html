@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- SEO -->
+  <title>Калькулятор процентной ставки — расчёт процентов онлайн</title>
+  <meta name="description" content="Онлайн-калькулятор процентной ставки: введите сумму, ставку и срок, чтобы быстро рассчитать проценты и итоговую сумму.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#1f4e5f">
+
+  <!-- Фавикон -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="card">
+    <h1>Калькулятор процентной ставки</h1>
+    <p class="lead">Рассчитайте проценты и итоговую сумму по вашему вкладу или кредиту.</p>
+
+    <div class="field">
+      <label for="principal">Сумма (основной долг)</label>
+      <input type="number" id="principal" value="10000" min="0" step="any">
+    </div>
+
+    <div class="field">
+      <label for="rate">Годовая ставка, %</label>
+      <input type="number" id="rate" value="5" min="0" step="any">
+    </div>
+
+    <div class="field">
+      <label for="years">Срок, лет</label>
+      <input type="number" id="years" value="3" min="0" step="any">
+    </div>
+
+    <button type="button" id="calculate-btn">Рассчитать</button>
+
+    <p id="result" role="status" aria-live="polite"></p>
+  </main>
+
+  <!-- JavaScript -->
+  <script src="script.js" defer></script>
+</body>
+</html>
